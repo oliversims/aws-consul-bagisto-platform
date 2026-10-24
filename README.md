@@ -303,6 +303,16 @@ Merging to main runs the same gates, pushes the image, and deploys it.
 6. Clear the Laravel and full-page caches
 7. Record the SHA in `bagisto/image` for new Auto Scaling instances
 
+<table>
+  <tr>
+    <td align="center">
+      <p align="center"><b>Recorded image</b></p>
+      <img src="docs/evidence/secrets-manager-image.png" alt="Secrets Manager secret bagisto/image holding the ECR repository URL and the git SHA of the running image" width="82%">
+      <br><sub><b>Figure 11.</b> <code>bagisto/image</code> after a deploy · the SHA every new Auto Scaling shop boots.</sub>
+    </td>
+  </tr>
+</table>
+
 **Rollback:** run the workflow by hand with the first characters of an older SHA. It redeploys that image from ECR without rebuilding.
 
 ### Image registry
@@ -312,7 +322,7 @@ Merging to main runs the same gates, pushes the image, and deploys it.
     <td align="center">
       <p align="center"><b>Amazon ECR</b></p>
       <img src="docs/evidence/ecr-bagisto.png" alt="Amazon ECR bagisto repository with images tagged by full git SHA" width="82%">
-      <br><sub><b>Figure 11.</b> Private ECR <code>bagisto</code> · immutable tags are full git SHAs (no <code>latest</code>).</sub>
+      <br><sub><b>Figure 12.</b> Private ECR <code>bagisto</code> · immutable tags are full git SHAs (no <code>latest</code>).</sub>
     </td>
   </tr>
 </table>
@@ -332,7 +342,7 @@ Merging to main runs the same gates, pushes the image, and deploys it.
     <td align="center" valign="top" width="50%">
       <p align="center"><b>Ansible over Session Manager</b></p>
       <img src="docs/evidence/ansible-site-recap.png" alt="Ansible play recap with every host ok and no failures" height="210">
-      <br><sub><b>Figure 12.</b> <code>site.yaml</code> recap · Consul agent and scheduler configured · <code>failed=0</code>, <code>unreachable=0</code>.</sub>
+      <br><sub><b>Figure 13.</b> <code>site.yaml</code> recap · Consul agent and scheduler configured · <code>failed=0</code>, <code>unreachable=0</code>.</sub>
     </td>
   </tr>
 </table>
@@ -350,12 +360,12 @@ Every host is private and belongs to an Auto Scaling group: three single-server 
     <td align="center" width="50%">
       <p align="center"><b>EC2 instances</b></p>
       <img src="docs/evidence/ec2-instances.png" alt="EC2 running instances: three Bagisto, three Consul, three Nginx, and Elasticsearch across three Availability Zones" width="100%">
-      <br><sub><b>Figure 13.</b> Ten private instances across us-east-1a, 1b, and 1c · no public IPs.</sub>
+      <br><sub><b>Figure 14.</b> Ten private instances across us-east-1a, 1b, and 1c · no public IPs.</sub>
     </td>
     <td align="center" width="50%">
       <p align="center"><b>Auto Scaling groups</b></p>
       <img src="docs/evidence/ec2-auto-scaling-groups.png" alt="Five Auto Scaling groups: bagisto-consul-a, b, and c with one instance each, bagisto and bagisto-nginx with three each, all healthy" width="100%">
-      <br><sub><b>Figure 14.</b> <code>bagisto-consul-a/b/c</code> (1 each) · <code>bagisto</code> (3) · <code>bagisto-nginx</code> (3) · all at desired capacity and healthy.</sub>
+      <br><sub><b>Figure 15.</b> <code>bagisto-consul-a/b/c</code> (1 each) · <code>bagisto</code> (3) · <code>bagisto-nginx</code> (3) · all at desired capacity and healthy.</sub>
     </td>
   </tr>
 </table>
@@ -369,12 +379,12 @@ The ALB is the only public entry point. Each tier has its own security group tha
     <td align="center" width="50%">
       <p align="center"><b>Load balancer</b></p>
       <img src="docs/evidence/ec2-load-balancer.png" alt="Internet-facing application load balancer bagisto-alb across three Availability Zones" width="100%">
-      <br><sub><b>Figure 15.</b> <code>bagisto-alb</code> · internet-facing · three AZs.</sub>
+      <br><sub><b>Figure 16.</b> <code>bagisto-alb</code> · internet-facing · three AZs.</sub>
     </td>
     <td align="center" width="50%">
       <p align="center"><b>Security groups</b></p>
       <img src="docs/evidence/ec2-security-groups.png" alt="Security groups for Bagisto, Redis, RDS, Nginx, Elasticsearch, EFS, Consul, and the ALB" width="100%">
-      <br><sub><b>Figure 16.</b> One security group per role · each opens only to the role that needs it.</sub>
+      <br><sub><b>Figure 17.</b> One security group per role · each opens only to the role that needs it.</sub>
     </td>
   </tr>
 </table>
@@ -404,7 +414,7 @@ Sessions, cache, and the job queue for every shop server.
     <td align="center">
       <p align="center"><b>ElastiCache Redis</b></p>
       <img src="docs/evidence/elasticache-redis.png" alt="ElastiCache Redis bagisto-redis with a primary and a replica, Multi-AZ, auto-failover, and encryption in transit and at rest" width="82%">
-      <br><sub><b>Figure 17.</b> <code>bagisto-redis</code> · primary and replica · Multi-AZ failover · TLS required.</sub>
+      <br><sub><b>Figure 18.</b> <code>bagisto-redis</code> · primary and replica · Multi-AZ failover · TLS required.</sub>
     </td>
   </tr>
 </table>
@@ -418,12 +428,12 @@ Product search, on a private EC2 instance over HTTPS.
     <td align="center" width="50%">
       <p align="center"><b>Cluster health</b></p>
       <img src="docs/evidence/elasticsearch-cluster-health.png" alt="Elasticsearch cluster health green over HTTPS from a Session Manager shell" width="100%">
-      <br><sub><b>Figure 18.</b> Cluster <code>green</code> over HTTPS · checked through Session Manager.</sub>
+      <br><sub><b>Figure 19.</b> Cluster <code>green</code> over HTTPS · checked through Session Manager.</sub>
     </td>
     <td align="center" width="50%">
       <p align="center"><b>Search engine in Bagisto</b></p>
       <img src="docs/evidence/bagisto-admin-elasticsearch.png" alt="Bagisto admin Elasticsearch configuration with the connection test reporting Elasticsearch is available" width="100%">
-      <br><sub><b>Figure 19.</b> Connection test reports <i>Elasticsearch is available</i>.</sub>
+      <br><sub><b>Figure 20.</b> Connection test reports <i>Elasticsearch is available</i>.</sub>
     </td>
   </tr>
 </table>
@@ -431,6 +441,16 @@ Product search, on a private EC2 instance over HTTPS.
 ### MySQL
 
 RDS MySQL 8.0 Multi-AZ with encrypted storage and TLS required. The shop verifies both MySQL and Elasticsearch with CA files written at boot.
+
+<table>
+  <tr>
+    <td align="center">
+      <p align="center"><b>Amazon RDS</b></p>
+      <img src="docs/evidence/rds-mysql.png" alt="Amazon RDS database bagisto-mysql, MySQL Community on db.t3.micro, status Available" width="82%">
+      <br><sub><b>Figure 21.</b> <code>bagisto-mysql</code> · MySQL 8.0 · Multi-AZ · available.</sub>
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -443,12 +463,12 @@ Bagisto sends account and order email through Amazon SES from `no-reply@simsoliv
     <td align="center" width="50%">
       <p align="center"><b>SES identities</b></p>
       <img src="docs/evidence/ses-identities.png" alt="Amazon SES identities: the simsoliver.com domain and a test email address, both verified" width="100%">
-      <br><sub><b>Figure 20.</b> Domain identity verified · test recipient for the SES sandbox.</sub>
+      <br><sub><b>Figure 22.</b> Domain identity verified · test recipient for the SES sandbox.</sub>
     </td>
     <td align="center" width="50%">
       <p align="center"><b>Delivered email</b></p>
       <img src="docs/evidence/ses-password-reset-email.png" alt="Password reset email from no-reply@simsoliver.com delivered to the inbox" width="100%">
-      <br><sub><b>Figure 21.</b> Password reset delivered through SES from <code>no-reply@simsoliver.com</code>.</sub>
+      <br><sub><b>Figure 23.</b> Password reset delivered through SES from <code>no-reply@simsoliver.com</code>.</sub>
     </td>
   </tr>
 </table>
@@ -466,19 +486,19 @@ The storefront is served at `https://bagisto.simsoliver.com`, with TLS on the lo
     <td align="center" colspan="2">
       <p align="center"><b>Homepage</b></p>
       <img src="docs/evidence/bagisto-home.png" alt="Bagisto storefront homepage at bagisto.simsoliver.com" width="100%">
-      <br><sub><b>Figure 22.</b> <code>https://bagisto.simsoliver.com</code> · banner images served from EFS.</sub>
+      <br><sub><b>Figure 24.</b> <code>https://bagisto.simsoliver.com</code> · banner images served from EFS.</sub>
     </td>
   </tr>
   <tr>
     <td align="center" width="50%">
       <p align="center"><b>Products</b></p>
       <img src="docs/evidence/bagisto-products.png" alt="Bagisto product listing with filters and product images" width="100%">
-      <br><sub><b>Figure 23.</b> Catalog with filters and product images.</sub>
+      <br><sub><b>Figure 25.</b> Catalog with filters and product images.</sub>
     </td>
     <td align="center" width="50%">
       <p align="center"><b>Customer login</b></p>
       <img src="docs/evidence/bagisto-customer-login.png" alt="Bagisto customer login page" width="100%">
-      <br><sub><b>Figure 24.</b> Customer login · session stored in Redis.</sub>
+      <br><sub><b>Figure 26.</b> Customer login · session stored in Redis.</sub>
     </td>
   </tr>
 </table>
@@ -490,17 +510,17 @@ The storefront is served at `https://bagisto.simsoliver.com`, with TLS on the lo
     <td align="center" width="33%">
       <p align="center"><b>Billing address</b></p>
       <img src="docs/evidence/bagisto-checkout-address.png" alt="Bagisto checkout billing address form with the cart summary" width="100%">
-      <br><sub><b>Figure 25.</b> Billing address and cart summary.</sub>
+      <br><sub><b>Figure 27.</b> Billing address and cart summary.</sub>
     </td>
     <td align="center" width="33%">
       <p align="center"><b>Shipping method</b></p>
       <img src="docs/evidence/bagisto-checkout-shipping.png" alt="Bagisto checkout shipping method selection and Place Order" width="100%">
-      <br><sub><b>Figure 26.</b> Shipping method · place order.</sub>
+      <br><sub><b>Figure 28.</b> Shipping method · place order.</sub>
     </td>
     <td align="center" width="33%">
       <p align="center"><b>Order placed</b></p>
       <img src="docs/evidence/bagisto-order-placed.png" alt="Bagisto order confirmation page" width="100%">
-      <br><sub><b>Figure 27.</b> Order confirmation.</sub>
+      <br><sub><b>Figure 29.</b> Order confirmation.</sub>
     </td>
   </tr>
 </table>
@@ -512,17 +532,17 @@ The storefront is served at `https://bagisto.simsoliver.com`, with TLS on the lo
     <td align="center" width="33%">
       <p align="center"><b>Admin login</b></p>
       <img src="docs/evidence/bagisto-admin-login.png" alt="Bagisto admin sign-in page" width="100%">
-      <br><sub><b>Figure 28.</b> Sign-in at <code>/admin</code>.</sub>
+      <br><sub><b>Figure 30.</b> Sign-in at <code>/admin</code>.</sub>
     </td>
     <td align="center" width="33%">
       <p align="center"><b>Dashboard</b></p>
       <img src="docs/evidence/bagisto-admin-dashboard.png" alt="Bagisto admin dashboard with store statistics and stock threshold" width="100%">
-      <br><sub><b>Figure 29.</b> Store statistics and stock threshold.</sub>
+      <br><sub><b>Figure 31.</b> Store statistics and stock threshold.</sub>
     </td>
     <td align="center" width="33%">
       <p align="center"><b>Catalog</b></p>
       <img src="docs/evidence/bagisto-admin-products.png" alt="Bagisto admin product list with 143 products" width="100%">
-      <br><sub><b>Figure 30.</b> 143 products loaded by the one-time install.</sub>
+      <br><sub><b>Figure 32.</b> 143 products loaded by the one-time install.</sub>
     </td>
   </tr>
 </table>
@@ -545,6 +565,20 @@ The storefront is served at `https://bagisto.simsoliver.com`, with TLS on the lo
 | Code | Gitleaks for secrets · Semgrep for risky patterns · Composer audit for vulnerable packages |
 | State | S3 remote state · encrypted · versioned · public access blocked · HTTPS only |
 
+### Secrets
+
+Every credential lives in Secrets Manager as JSON. Instances read only the secrets their role allows, at boot or deploy time.
+
+<table>
+  <tr>
+    <td align="center">
+      <p align="center"><b>Secrets Manager</b></p>
+      <img src="docs/evidence/secrets-manager-secrets.png" alt="Secrets Manager list with the six bagisto secrets: mysql, elasticsearch, redis, app-key, image, and elasticsearch-tls" width="82%">
+      <br><sub><b>Figure 33.</b> The six <code>bagisto/*</code> secrets · none of them in Git, tfvars, or the image.</sub>
+    </td>
+  </tr>
+</table>
+
 ### Console access
 
 <table>
@@ -552,7 +586,7 @@ The storefront is served at `https://bagisto.simsoliver.com`, with TLS on the lo
     <td align="center">
       <p align="center"><b>Console access</b></p>
       <img src="docs/evidence/aws-console-sign-in.png" alt="AWS console sign-in as an IAM user" width="56%">
-      <br><sub><b>Figure 31.</b> Day-to-day work as an IAM user, not the root account.</sub>
+      <br><sub><b>Figure 34.</b> Day-to-day work as an IAM user, not the root account.</sub>
     </td>
   </tr>
 </table>
