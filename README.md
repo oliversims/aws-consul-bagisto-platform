@@ -543,7 +543,7 @@ The storefront is served at `https://bagisto.simsoliver.com`, with TLS on the lo
 | CI identity | GitHub OIDC role locked to this repository and `main` · no stored AWS keys |
 | Images | Trivy before push · ECR scan on push · immutable SHA tags |
 | Code | Gitleaks for secrets · Semgrep for risky patterns · Composer audit for vulnerable packages |
-| State | S3 remote state · encrypted · versioned |
+| State | S3 remote state · encrypted · versioned · public access blocked · HTTPS only |
 
 ### Console access
 
